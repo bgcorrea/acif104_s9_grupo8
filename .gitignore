@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+.venv
+env/
+venv/
+*.egg-info/
+dist/
+build/
+.ipynb_checkpoints/
+*.pkl
+*.joblib
+outputs/figures/*.png
+outputs/results/*.csv
+.DS_Store
