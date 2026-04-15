@@ -120,34 +120,32 @@ def crear_mlp_regularizado(n_features: int, n_clases: int = 3):
         ],
         name="MLP_Regularizado",
     )
-    lr_schedule = keras.optimizers.schedules.ExponentialDecay(
-        initial_learning_rate=1e-3,
-        decay_steps=500,
-        decay_rate=0.9,
-        staircase=True,
-    )
     modelo.compile(
-        optimizer=keras.optimizers.Adam(learning_rate=lr_schedule),
+        optimizer=keras.optimizers.Adam(learning_rate=1e-3),
         loss="sparse_categorical_crossentropy",
         metrics=["accuracy"],
     )
     return modelo
 
 
-def callbacks_entrenamiento(patience: int = 10):
-    """Early stopping + reducción de LR."""
-    return [
+def callbacks_entrenamiento(patience: int = 10, reduce_lr: bool = True):
+    """Early stopping + reducción de LR opcional."""
+    cbs = [
         keras.callbacks.EarlyStopping(
             monitor="val_loss",
             patience=patience,
             restore_best_weights=True,
             verbose=0,
         ),
-        keras.callbacks.ReduceLROnPlateau(
-            monitor="val_loss",
-            factor=0.5,
-            patience=5,
-            min_lr=1e-6,
-            verbose=0,
-        ),
     ]
+    if reduce_lr:
+        cbs.append(
+            keras.callbacks.ReduceLROnPlateau(
+                monitor="val_loss",
+                factor=0.5,
+                patience=5,
+                min_lr=1e-6,
+                verbose=0,
+            )
+        )
+    return cbs
