@@ -8,7 +8,7 @@ Proyecto de clasificación multiclase que predice el rendimiento de cultivos (**
 ## Estructura del Repositorio
 
 ```
-crop-yield-classifier/
+acif104_s9_grupo8/
 ├── README.md
 ├── requirements.txt
 ├── .gitignore
